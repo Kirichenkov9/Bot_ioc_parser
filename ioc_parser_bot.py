@@ -76,8 +76,8 @@ def process_ioc(url):
     response = request_url(url)
     iocs, status = parse_response(response)
     if status == "error":
-        return iocs["error"]
-    message = ioc_to_message(iocs)
+        return iocs["error"], 
+    message = ioc_to_message(iocs), None
 
     yara = get_yara(response)
     if yara:
