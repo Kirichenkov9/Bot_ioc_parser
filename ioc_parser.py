@@ -96,7 +96,7 @@ def process_ioc(url):
     ttps = parse_mitre_ttp(response)
     meta = parse_meta(response)
     message_iocs = ioc_to_message(iocs)
-    message_ttps = f"*TTP*s: {len(ttps)}\r\n\n"
+    message_ttps = f"*TTPs*: {len(ttps)}\r\n\n"
     message_description = meta_to_message(meta)
     message = message_description
     message += message_ttps
