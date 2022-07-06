@@ -1,1 +1,1 @@
-worker: python main.py
+worker: python ioc_parser_bot.py
