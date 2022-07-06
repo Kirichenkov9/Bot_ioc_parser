@@ -25,7 +25,7 @@ def handle_text(message):
     logging.info('ioc processing..............')
     if len(text) > 4095:
         for x in range(0, len(text), 4095):
-            bot.send_message(message.chat.id, text=text[x:x+4095], parse_mode='Markdown')
+            bot.send_message(message.chat.id, text[x:x+4095], parse_mode='Markdown')
     else:
         bot.send_message(message.chat.id, text, parse_mode='Markdown')
     logging.info('send message')
