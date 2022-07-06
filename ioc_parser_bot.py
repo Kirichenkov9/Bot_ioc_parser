@@ -19,6 +19,9 @@ def start(m, res=False):
 @bot.message_handler(content_types=["text"])
 def handle_text(message):
     text, yara = process_ioc(message.text)
+    if text == '':
+        text = "Report doesn't contains IOCs"
+
     logging.info('ioc processing..............')
     if len(text) > 4095:
         for x in range(0, len(text), 4095):
