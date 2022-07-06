@@ -2,6 +2,7 @@ import telebot
 import requests
 import urllib.parse
 import os
+import logging
 
 TOKEN = os.getenv('BOT_TOKEN')
 
@@ -86,6 +87,7 @@ def process_ioc(url):
 
 @bot.message_handler(commands=["start"])
 def start(m, res=False):
+    logging.info('Start')
     bot.send_message(m.chat.id, 'Send url')
 # Получение сообщений от юзера
 
@@ -93,7 +95,9 @@ def start(m, res=False):
 @bot.message_handler(content_types=["text"])
 def handle_text(message):
     text, yara = process_ioc(message.text)
+    logging.info('ioc processing..............')
     bot.send_message(message.chat.id, text, parse_mode='Markdown')
+    logging.info('send message')
     if yara:
         bot.send_document(message.chat.id, document=open(
             'yara.yar', 'rb'), visible_file_name="yara.yar")
