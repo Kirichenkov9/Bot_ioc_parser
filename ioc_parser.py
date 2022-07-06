@@ -80,6 +80,7 @@ def meta_to_message(meta):
     description = meta['description']
     message = f"*{title}*\r\n"
     message += f"{description}\r\n"
+    return message
  
 
 def process_ioc(url):
