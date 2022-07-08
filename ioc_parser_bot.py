@@ -28,6 +28,7 @@ def handle_text(message):
     for msg in msgs:
         bot.send_message(message.chat.id, msg)
     logging.info('send message')
+    
     if yara:
         bot.send_document(message.chat.id, document=open(
             'yara.yar', 'rb'), visible_file_name="yara.yar")

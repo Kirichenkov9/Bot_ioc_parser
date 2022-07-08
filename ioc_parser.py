@@ -10,8 +10,7 @@ def request_url(url):
     }
     response = requests.request(
         "POST", parser_url, headers=headers, json=payload)
-    print(response.status_code)
-    return response.json()
+    return response.json(), response.status_code
 
 
 def request_raw(raw):
@@ -21,7 +20,7 @@ def request_raw(raw):
     }
     response = requests.request(
         "POST", parser_url, headers=headers, data=raw)
-    return response, response.status_code
+    return response.json(), response.status_code
 
 
 def parse_response(response):
