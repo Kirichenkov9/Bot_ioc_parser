@@ -1,5 +1,6 @@
 from email import message
 import requests
+import logging
 
 
 def request_url(url):
@@ -10,6 +11,7 @@ def request_url(url):
     }
     response = requests.request(
         "POST", parser_url, headers=headers, json=payload)
+    logging.debug(f'{response}')
     return response.json(), response.status_code
 
 
