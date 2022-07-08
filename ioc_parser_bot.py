@@ -26,7 +26,7 @@ def handle_text(message):
     logging.info('ioc processing..............')
     msgs = [text[i:i + 4096] for i in range(0, len(text), 4096)]
     for msg in msgs:
-        bot.send_message(message.chat.id, msg, parse_mode='Markdown')
+        bot.send_message(message.chat.id, msg)
     logging.info('send message')
     if yara:
         bot.send_document(message.chat.id, document=open(
