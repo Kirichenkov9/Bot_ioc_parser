@@ -11,8 +11,7 @@ def request_url(url):
     }
     response = requests.request(
         "POST", parser_url, headers=headers, json=payload)
-    logging.debug(f'{response}')
-    return response.json(), response.status_code
+    return response
 
 
 def request_raw(raw):
@@ -22,11 +21,11 @@ def request_raw(raw):
     }
     response = requests.request(
         "POST", parser_url, headers=headers, data=raw)
-    return response.json(), response.status_code
+    return response
 
 
 def parse_response(response):
-    data = response['data']
+    data = response.json()['data']
     iocs = {
         'md5': data['FILE_HASH_MD5'],
         'sha256': data['FILE_HASH_SHA256'],
@@ -38,7 +37,7 @@ def parse_response(response):
 
 
 def parse_meta(response):
-    meta = response['meta']
+    meta = response.json()['meta']
     return {
         'description': meta['description'],
         'title': meta['title']
@@ -46,13 +45,13 @@ def parse_meta(response):
 
 
 def parse_mitre_ttp(response):
-    data = response['data']
+    data = response.json()['data']
     ttp = data['MITRE_ATT&CK']
     return ttp
 
 
 def parse_yara(response):
-    data = response['data']
+    data = response.json()['data']
     return data['YARA_RULE']
 
 
@@ -81,8 +80,8 @@ def meta_to_message(meta):
  
 
 def process_ioc(url):
-    response, status = request_url(url)
-    if status != 200:
+    response = request_url(url)
+    if response.status_code != 200:
         return "IOC Parser failed to resolve the given URL", None
 
     iocs = parse_response(response)
