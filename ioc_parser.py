@@ -9,9 +9,9 @@ def request_url(url):
         'Content-Type': 'application/json'
     }
     response = requests.request(
-        "POST", parser_url, headers=headers, json=payload).json()
-    print(response)
-    return response
+        "POST", parser_url, headers=headers, json=payload)
+    print(response.status_code)
+    return response.json()
 
 
 def request_raw(raw):
@@ -20,15 +20,11 @@ def request_raw(raw):
         'Content-Type': 'text/plain'
     }
     response = requests.request(
-        "POST", parser_url, headers=headers, data=raw).json()
-    return response
+        "POST", parser_url, headers=headers, data=raw)
+    return response, response.status_code
 
 
 def parse_response(response):
-    status = response["status"]
-    if status == "error":
-        return response, status
-
     data = response['data']
     iocs = {
         'md5': data['FILE_HASH_MD5'],
@@ -37,7 +33,7 @@ def parse_response(response):
         'ip': data['IPv4'],
         'email': data['EMAIL']
     }
-    return {k: v for k, v in iocs.items() if v}, status
+    return {k: v for k, v in iocs.items() if v}
 
 
 def parse_meta(response):
@@ -84,11 +80,11 @@ def meta_to_message(meta):
  
 
 def process_ioc(url):
-    response = request_url(url)
-    iocs, status = parse_response(response)
-    if status == "error":
-        return iocs["error"], None
+    response, status = request_url(url)
+    if status != 200:
+        return "IOC Parser failed to resolve the given URL", None
 
+    iocs = parse_response(response)
     yara = parse_yara(response)
     if yara:
         save_yara(yara)
