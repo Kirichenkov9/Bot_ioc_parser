@@ -19,15 +19,14 @@ def start(m, res=False):
 @bot.message_handler(content_types=["text"])
 def handle_text(message):
     text, yara = process_ioc(message.text)
+
     if text == '':
         text = "Report doesn't contains IOCs"
 
     logging.info('ioc processing..............')
-    if len(text) > 4095:
-        for x in range(0, len(text), 4095):
-            bot.send_message(message.chat.id, text[x:x+4095], parse_mode='Markdown')
-    else:
-        bot.send_message(message.chat.id, text, parse_mode='Markdown')
+    msgs = [text[i:i + 4096] for i in range(0, len(text), 4096)]
+    for msg in msgs:
+        bot.send_message(message.chat.id, msg, parse_mode='Markdown')
     logging.info('send message')
     if yara:
         bot.send_document(message.chat.id, document=open(
