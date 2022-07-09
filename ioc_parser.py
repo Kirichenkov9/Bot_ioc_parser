@@ -29,6 +29,16 @@ def request_raw(raw):
         f"{response.request.method} {response.request.url} {response.status_code} {raw}")
     return response
 
+def request_twitter(twitter):
+    parser_url = "https://api.iocparser.com/raw"
+    payload = {"data": twitter}
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    response = requests.request("POST", parser_url, headers=headers, json=payload)
+    logger.info(
+        f"{response.request.method} {response.request.url} {response.status_code} {twitter}")
+    return response
 
 def parse_response(response):
     data = response.json()['data']

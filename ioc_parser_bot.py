@@ -44,7 +44,7 @@ def process_user_message(message):
     if "#report" in hashtags:
         response = request_url(text)
     elif "#twitter" in hashtags:
-        response = request_url(text)
+        response = request_twitter(text)
     else:
         response = request_raw(text)
 
