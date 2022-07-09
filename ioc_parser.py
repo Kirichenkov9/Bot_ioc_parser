@@ -30,7 +30,7 @@ def request_raw(raw):
     return response
 
 def request_twitter(twitter):
-    parser_url = "https://api.iocparser.com/raw"
+    parser_url = "https://api.iocparser.com/twitter"
     payload = {"data": twitter}
     headers = {
         'Content-Type': 'application/json'
