@@ -45,7 +45,9 @@ def process_user_message(message):
                     entitie.offset:entitie.offset+entitie.length]
                 hashtags.append(hashtag)
                 text = text.replace(hashtag, '')
-
+    if not text:
+        bot.send_message(message.chat.id, "No IOC", parse_mode="HTML")
+        return
     if "#no_enr" in hashtags:
         enrichment = False
     if "#report" in hashtags:
