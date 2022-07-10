@@ -13,8 +13,15 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=["start"])
 def start(m, res=False):
-    logger.info('Start')
-    bot.send_message(m.chat.id, 'Send url')
+    logger.info('start')
+    bot.send_message(m.chat.id, 'Send iocs or url of report')
+
+
+@bot.message_handler(commands=["help"])
+def start(m, res=False):
+    logger.info('help')
+    bot.send_message(
+        m.chat.id, "#no_enr - don't enrich hash on VT\n#report - parse ioc from report\n#twitter - parse ioc from twitter account")
 
 
 @bot.message_handler(content_types=["text"])
