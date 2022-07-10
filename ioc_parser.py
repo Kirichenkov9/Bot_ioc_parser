@@ -24,7 +24,7 @@ def request_raw(raw):
         'Content-Type': 'text/plain'
     }
     response = requests.request(
-        "POST", parser_url, headers=headers, data=raw)
+        "POST", parser_url, headers=headers, data=raw.encode('utf-8').decode('unicode-escape'))
     logger.info(
         f"{response.request.method} {response.request.url} {response.status_code} {raw}")
     return response

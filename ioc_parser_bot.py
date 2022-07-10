@@ -57,7 +57,7 @@ def send_formated_iocs(message, response, enrichment=True):
         return
     if response.status_code != 200:
         bot.send_message(
-            message.chat.id, "IOC Parser failed to resolve the given URL", parse_mode="HTML")
+            message.chat.id, response['error'], parse_mode="HTML")
         return
 
     if enrichment:
