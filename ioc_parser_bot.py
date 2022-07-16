@@ -107,6 +107,8 @@ def format_message(iocs, meta, ttps):
         logger.error(f"Error format message{err}")
 
     for type, values in iocs.items():
+        if type == "ttp":
+            continue
         message += f"<b>{type}</b>\r\n"
         for val in values:
             message += f"<code>{val}</code>\r\n"
