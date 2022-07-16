@@ -89,7 +89,7 @@ def send_formated_iocs(message, response, enrichment=True):
     text = format_message(iocs, meta, ttps)
     msgs = [text[i:i + 4096] for i in range(0, len(text), 4096)]
     for msg in msgs:
-        bot.send_message(message.chat.id, msg)
+        bot.send_message(message.chat.id, msg, parse_mode="HTML")
 
     logger.info(f'message send - {message.chat.id} {message.chat.username}')
 
