@@ -107,9 +107,9 @@ def update_iocs(iocs):
     iocs.update(updated_hashes)
     return iocs
 
-def save_yara(yara):
-    with open(f'{file}.yar', 'w') as file:
+def save_yara(yara, filename="yara"):
+    with open(f'{filename}.yar', 'w') as file:
         for rule in yara:
             file.write(rule)
-    logger.info(f"Yara saved to file {file}")
-    return file
+    logger.info(f"Yara saved to file {filename}")
+    return filename
