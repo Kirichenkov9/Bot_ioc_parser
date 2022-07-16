@@ -93,7 +93,7 @@ def send_formated_iocs(message, response, enrichment=True):
 
     logger.info(f'message send - {message.chat.id} {message.chat.username}')
 
-    send_yara(yara, yara_file)
+    send_yara(message, yara, yara_file)
 
 
 def format_message(iocs, meta, ttps):
@@ -116,7 +116,7 @@ def format_message(iocs, meta, ttps):
     return message
 
 
-def send_yara(yara, filename='yara'):
+def send_yara(message, yara, filename='yara'):
     if yara:
         file = filename.replace(" ", "_")
         save_yara(yara, file)
